@@ -90,9 +90,9 @@ const redirectHome = (req, res, next) => {
 // moment.tz.setDefault('Asia/Kolkata');
 
 // define a root route
-app.get('/', (req, res) => {
-    res.send("9558441004");
-});
+// app.get('/', (req, res) => {
+//     res.send("9558441004");
+// });
 // Require employee routes
 const productRoutes = require('./routes/routes')
 const categoriesRoutes = require('./routes/categoriesRoutes')
@@ -763,6 +763,12 @@ app.get('/userHome', userRedirectLogin, function(request, response) {
     });
 });
 
+app.get('/', function(request, response) {
+
+    response.render(path.join(__dirname + '/public/withoutLoginHome'));
+
+});
+
 app.get('/productView/:id', userRedirectLogin, function(request, response) {
     const product_id = request.params.id;
 
@@ -776,6 +782,25 @@ app.get('/productView/:id', userRedirectLogin, function(request, response) {
 
             // Pass the product and image details as objects to the render method
             response.render(path.join(__dirname + '/public/viewSingleProduct'), {
+                product: products[0],
+                images: images[0]
+            });
+        });
+    });
+});
+app.get('/productViewWithoutLogin/:id', function(request, response) {
+    const product_id = request.params.id;
+
+    // Query the database for the product with the given ID
+    dbConn.query('SELECT * FROM products WHERE product_id = ?', [product_id], function(error, products, fields) {
+        if (error) throw error;
+
+        // Query the database for all images with the given product_id
+        dbConn.query('SELECT * FROM images WHERE product_id = ?', [product_id], function(error, images, fields) {
+            if (error) throw error;
+
+            // Pass the product and image details as objects to the render method
+            response.render(path.join(__dirname + '/public/viewSingleProductWithoutLogin'), {
                 product: products[0],
                 images: images[0]
             });
@@ -1548,14 +1573,17 @@ app.get('/send-whatsapp-message', (req, res) => {
 
 
 app.get('/get-variant-quantity', (req, res) => {
-    const { size, color } = req.query;
+    const { size, color, productId } = req.query;
+    console.log(size);
+    console.log(color);
+    console.log("ProductId:" + productId);
 
     if (!size || !color) {
         res.send('<script>alert("Both size and colour is necessary.");</script>');
         return;
     }
 
-    db.query('SELECT variant_quantity FROM product_details WHERE product_size = ? AND product_color = ?', [size, color], (err, results) => {
+    dbConn.query('SELECT variant_quantity FROM product_details WHERE product_size = ? AND product_color = ? AND product_id = ?', [size, color, productId], (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Internal server error');
@@ -1568,6 +1596,7 @@ app.get('/get-variant-quantity', (req, res) => {
         }
 
         const variantQuantity = results[0].variant_quantity;
+        console.log(variantQuantity);
         res.send(variantQuantity.toString());
     });
 });

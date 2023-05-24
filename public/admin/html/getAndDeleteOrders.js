@@ -140,7 +140,9 @@ function addRow(order) {
 }
 
 
-
+var totalOrders = 0
+var pendingOrders = 0
+var paidOrders = 0
 
 
 
@@ -149,10 +151,23 @@ axios.get('http://localhost:5000/api/v1/orders')
         const data = response.data;
         console.log(data);
         data.forEach(item => {
+            if (item.status === "Pending") {
+                pendingOrders++
+            } else if (item.status === "Paid") {
+                paidOrders++
+            }
+            totalOrders++
             addRow(item)
         });
+        document.getElementById("totalOrders").innerHTML = totalOrders
+        document.getElementById("paidOrders").innerHTML = paidOrders
+        document.getElementById("pendingOrders").innerHTML = pendingOrders
+        console.log(totalOrders);
+        console.log(pendingOrders);
+        console.log(paidOrders);
     })
     .catch(error => console.log(error));
+
 
 
 function updateOrderStatus(paymentStatus, orderId) {

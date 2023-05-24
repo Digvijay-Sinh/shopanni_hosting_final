@@ -557,6 +557,53 @@ axios.get(`http://localhost:5000/colors`)
         console.error(error);
     });
 
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Dom content loaded");
 
+    const sizeDropdown = document.getElementById('size-dropdown');
+    const colorDropdown = document.getElementById('colour-dropdown');
+
+    var styleElement = document.createElement('style');
+    styleElement.innerHTML = '#colour-dropdown option::selection { background-color: #f5f5f5; color: inherit; }';
+    document.head.appendChild(styleElement);
+
+    sizeDropdown.addEventListener('change', async() => {
+        const size = sizeDropdown.value;
+        const color = colorDropdown.value;
+        console.log("size changed");
+        if (size && color) {
+            try {
+                const response = await axios.get('/get-variant-quantity', { params: { size, color, productId } });
+                const variantQuantity = parseInt(response.data);
+                document.getElementById("quantity").innerHTML = "Quantity:" + variantQuantity;
+                console.log(variantQuantity);
+            } catch (err) {
+                console.error(err);
+                // Handle error
+            }
+        }
+    });
+    colorDropdown.addEventListener('change', async() => {
+        const size = sizeDropdown.value;
+        const color = colorDropdown.value;
+        console.log("colour changed");
+
+        if (size && color) {
+            try {
+                const response = await axios.get('/get-variant-quantity', { params: { size, color, productId } });
+                const variantQuantity = parseInt(response.data);
+                console.log(variantQuantity);
+                document.getElementById("quantity").innerHTML = "Quantity:" + variantQuantity;
+
+                // Do something with the variantQuantity, e.g. update the UI
+            } catch (err) {
+                console.error(err);
+                // Handle error
+            }
+        }
+    });
+
+    // Assuming the options are fetched from an Axios GET request and stored in an array called "options"
+})
 
 // Assuming the options are fetched from an Axios GET request and stored in an array called "options"

@@ -166,8 +166,11 @@
                 input.type = 'number';
                 input.name = 'num-product1';
                 input.value = item.quantity;
-                input.setAttribute('id', `prod-${product.product_id}-${item.colour}-${item.product_size_id}-input`);
 
+                input.setAttribute('id', `prod-${product.product_id}-${item.colour}-${item.product_size_id}-input`);
+                input.addEventListener("focus", () => {
+                    document.getElementById(`prod-${product.product_id}-${item.colour}-${item.product_size_id}-input`).blur(); // Prevents the input field from getting focus when clicked
+                });
                 var plusButton = document.createElement('div');
                 plusButton.classList.add('btn-num-product-up', 'cl8', 'hov-btn3', 'trans-04', 'flex-c-m');
                 plusButton.innerHTML = '<i class="fs-16 zmdi zmdi-plus"></i>';

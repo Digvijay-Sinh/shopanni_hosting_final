@@ -90,9 +90,9 @@ const redirectHome = (req, res, next) => {
 // moment.tz.setDefault('Asia/Kolkata');
 
 // define a root route
-app.get('/', (req, res) => {
-    res.send("9558441004");
-});
+// app.get('/', (req, res) => {
+//     res.send("9558441004");
+// });
 // Require employee routes
 const productRoutes = require('./routes/routes')
 const categoriesRoutes = require('./routes/categoriesRoutes')
@@ -761,6 +761,12 @@ app.get('/userHome', userRedirectLogin, function(request, response) {
         console.log(cartTotal); // move console.log inside the callback function
         // response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal });
     });
+});
+
+app.get('/', function(request, response) {
+
+    response.render(path.join(__dirname + '/public/withoutLoginHome'));
+
 });
 
 app.get('/productView/:id', userRedirectLogin, function(request, response) {

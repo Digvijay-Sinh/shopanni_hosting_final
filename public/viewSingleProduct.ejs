@@ -93,6 +93,9 @@
         }
       }
     </style>
+    <script>
+      const productId = "<%= product.product_id %>";
+    </script>
   </head>
 
   <body style="margin: 50px" class="animsition">
@@ -237,7 +240,18 @@
 
               <div class="size-204 respon6-next">
                 <div class="rs1-select2 bor8 bg0">
-                  <select id="size-dropdown" class="js-select2" name="time">
+                  <select
+                    style="
+                      padding: 10px;
+                      font-size: 16px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      width: 100%;
+                    "
+                    id="size-dropdown"
+                    class="js-select2"
+                    name="time"
+                  >
                     <option>Choose an option</option>
                   </select>
                   <div class="dropDownSelect2"></div>
@@ -250,12 +264,27 @@
 
               <div class="size-204 respon6-next">
                 <div class="rs1-select2 bor8 bg0">
-                  <select id="colour-dropdown" class="js-select2" name="time">
+                  <select
+                    style="
+                      padding: 10px;
+                      font-size: 16px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      width: 100%;
+                    "
+                    id="colour-dropdown"
+                    class="js-select2"
+                    name="time"
+                  >
                     <option>Choose an option</option>
                   </select>
                   <div class="dropDownSelect2"></div>
                 </div>
               </div>
+            </div>
+
+            <div id="quantity" class="size-203 flex-c-m respon6">
+              Quantity: 0
             </div>
 
             <div class="flex-w flex-r-m p-b-10">
@@ -340,14 +369,7 @@
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="/vendor/select2/select2.min.js"></script>
-    <script>
-      $(".js-select2").each(function () {
-        $(this).select2({
-          minimumResultsForSearch: 20,
-          dropdownParent: $(this).next(".dropDownSelect2"),
-        });
-      });
-    </script>
+    <script></script>
     <!--===============================================================================================-->
     <script src="/vendor/daterangepicker/moment.min.js"></script>
     <script src="/vendor/daterangepicker/daterangepicker.js"></script>

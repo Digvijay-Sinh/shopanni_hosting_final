@@ -93,6 +93,9 @@
         }
       }
     </style>
+    <script>
+      const productId = "<%= product.product_id %>";
+    </script>
   </head>
 
   <body style="margin: 50px" class="animsition">
@@ -236,8 +239,19 @@
               <div class="size-203 flex-c-m respon6">Size</div>
 
               <div class="size-204 respon6-next">
-                <div class="rs1-select2 bor8 bg0">
-                  <select id="size-dropdown" class="js-select2" name="time">
+                <div class="rs1-select2">
+                  <select
+                    id="size-dropdown"
+                    class="js-select2"
+                    name="time"
+                    style="
+                      padding: 10px;
+                      font-size: 16px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      width: 100%;
+                    "
+                  >
                     <option>Choose an option</option>
                   </select>
                   <div class="dropDownSelect2"></div>
@@ -249,10 +263,29 @@
               <div class="size-203 flex-c-m respon6">Color</div>
 
               <div class="size-204 respon6-next">
-                <div class="rs1-select2 bor8 bg0">
-                  <select id="colour-dropdown" class="js-select2" name="time">
-                    <option>Choose an option</option>
+                <div class="rs1-select2">
+                  <select
+                    id="colour-dropdown"
+                    class="js-select2"
+                    name="time"
+                    style="
+                      padding: 10px;
+                      font-size: 16px;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      width: 100%;
+                    "
+                  >
+                    <option
+                      style="padding: 5px 0; border-bottom: 1px solid #8a8282"
+                    >
+                      Choose an option
+                    </option>
                   </select>
+                  <div id="quantity" class="size-203 flex-c-m respon6">
+                    Quantity: 0
+                  </div>
+
                   <div class="dropDownSelect2"></div>
                 </div>
               </div>
@@ -330,7 +363,12 @@
         </div>
       </div>
     </div>
-
+    <style>
+      #colour-dropdown option::selection {
+        background-color: #f5f5f5;
+        color: inherit;
+      }
+    </style>
     <!--===============================================================================================-->
     <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -340,14 +378,9 @@
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="/vendor/select2/select2.min.js"></script>
-    <script>
-      $(".js-select2").each(function () {
-        $(this).select2({
-          minimumResultsForSearch: 20,
-          dropdownParent: $(this).next(".dropDownSelect2"),
-        });
-      });
-    </script>
+    <!--Cutted content-->
+
+    <script></script>
     <!--===============================================================================================-->
     <script src="/vendor/daterangepicker/moment.min.js"></script>
     <script src="/vendor/daterangepicker/daterangepicker.js"></script>
@@ -420,40 +453,7 @@
           .find(".js-name-detail")
           .html();
         $(this).on("click", async function () {
-          var productId = "<%- product.product_id %>";
-
-          const responseProduct = await axios.get(
-            `http://localhost:5000/api/v1/products/${productId}`
-          );
-          const product = responseProduct.data[0];
-
-          var sizeDropdown = document.getElementById("size-dropdown");
-          var sizeValue =
-            sizeDropdown.options[sizeDropdown.selectedIndex].value;
-
-          var colourDropdown = document.getElementById("colour-dropdown");
-          var colourValue =
-            colourDropdown.options[colourDropdown.selectedIndex].value;
-
-          var quantityInput = document.getElementById("quantity-input");
-          var quantityValue = quantityInput.value;
-
-          axios
-            .post("/cart_items", {
-              product_id: productId,
-              product_size_id: sizeValue,
-              quantity: quantityValue,
-              colour: colourValue,
-            })
-            .then(() => {
-              swal(product.name, "is added to cart !", "success").then(() => {
-                window.location.href = "http://localhost:5000/userHome";
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-              swal("Error", "Could not add item to cart", "error");
-            });
+          window.location.href = "http://localhost:5000/userHome";
         });
       });
     </script>
@@ -482,6 +482,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="/viewProductModal.js"></script>
+    <script src="/viewProductModalWithoutLogin.js"></script>
   </body>
 </html>

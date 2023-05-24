@@ -146,7 +146,7 @@ axios.get('http://localhost:5000/api/v1/products')
                             <div class="block2-pic hov-img0">
                                 <img height="334.34px" src="images/${imageName}" alt="IMG-PRODUCT">
     
-                                <a href="http://localhost:5000/productView/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                <a href="http://localhost:5000/productViewWithoutLogin/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
                                     Quick View
                                 </a>
                             </div>
@@ -246,7 +246,7 @@ function applyFilter() {
                                 <div class="block2-pic hov-img0">
                                     <img height="334.34px" src="images/${imageName}" alt="IMG-PRODUCT">
         
-                                    <a href="http://localhost:5000/productView/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                    <a href="http://localhost:5000/productViewWithoutLogin/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
                                         Quick View
                                     </a>
                                 </div>
@@ -437,7 +437,7 @@ function applyFilter() {
                             <div class="block2-pic hov-img0">
                                 <img src="images/${imageName}" alt="IMG-PRODUCT">
     
-                                <a href="http://localhost:5000/productView/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                <a href="http://localhost:5000/productViewWithoutLogin/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
                                     Quick View
                                 </a>
                             </div>

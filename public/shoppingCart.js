@@ -531,25 +531,58 @@
     //     const url = `https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
     //     window.open(url, '_blank');
     // });
-
     function payment() {
         const paymentForm = document.getElementById('paymentForm');
         const errorMessage = document.getElementById('errorMessage');
-
-        // paymentForm.addEventListener('submit', (event) => {
+      
+        const nameInput = document.getElementById('name');
+        const addressInput = document.getElementById('address');
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
+      
+        const name = nameInput.value.trim();
+        const address = addressInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const email = emailInput.value.trim();
+      
+        if (name.length < 2) {
+          displayErrorMessage('Please enter a valid name ');
+          return;
+        }
+     
+      
+        if (address === '' || phone === '') {
+          displayErrorMessage('Please fill in all required fields.');
+          return;
+        }
+      
+        if (!validatePhoneNumber(phone)) {
+          displayErrorMessage('Please enter a valid 10-digit Indian phone number starting with 6, 7, 8, or 9.');
+          return;
+        }
+      
         const paymentMethod = document.getElementById('poption').value;
         if (paymentMethod === '') {
-            errorMessage.style.display = 'block';
-        } else if (paymentMethod === 'Cash on Delivery') {
-
-        } else if (paymentMethod === 'Online') {
-            checkoutOnline()
-        } else if (paymentMethod === 'whatsapp') {
-            checkoutWhatsapp()
+          displayErrorMessage('Please select a payment method.');
+        } else {
+          errorMessage.style.display = 'none'; // Hide error message if validation passed
+          // Perform further processing or submit the form
         }
-        // });
-
-    }
+      }
+      
+      function displayErrorMessage(message) {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+      }
+      
+   
+      function validatePhoneNumber(phone) {
+        const phoneRegex = /^[6-9]\d{9}$/;
+        return phoneRegex.test(phone);
+      }
+      
+      
 
 
     function checkoutOnline() {

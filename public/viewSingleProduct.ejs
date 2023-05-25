@@ -232,6 +232,10 @@
             Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula.
             Mauris consequat ornare feugiat.
           </p>
+          <div class="alert alert-danger" role="alert" style="background-color: #ffdddd;">
+            <span class="emoji">&#9888;</span> Please select the Product size and color.
+          </div>
+
 
           <!--  -->
           <div class="p-t-33">
@@ -251,8 +255,9 @@
                     id="size-dropdown"
                     class="js-select2"
                     name="time"
+                    required
                   >
-                    <option>Choose an option</option>
+                  <option value="" disabled >Choose an option</option>
                   </select>
                   <div class="dropDownSelect2"></div>
                 </div>
@@ -275,17 +280,19 @@
                     id="colour-dropdown"
                     class="js-select2"
                     name="time"
+                    required
                   >
-                    <option>Choose an option</option>
+                  <option value="" disabled >Choose an option</option>
                   </select>
                   <div class="dropDownSelect2"></div>
                 </div>
               </div>
             </div>
-
-            <div id="quantity" class="size-203 flex-c-m respon6">
+            
+            <div id="quantity" class="size-203 flex-c-m respon6" style="font-weight: bold; color: #333; background-color: #f5f5f5; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
               Quantity: 0
             </div>
+            
 
             <div class="flex-w flex-r-m p-b-10">
               <div class="size-204 flex-w flex-m respon6-next">

@@ -578,6 +578,63 @@ app.post('/send-otp', (req, res) => {
 
 
 });
+app.post('/send-otp-forgetPassword', (req, res) => {
+    const { email } = req.body;
+    req.session.isForgetPassword = true;
+
+    const query = "SELECT * FROM users2 WHERE email = ?";
+    dbConn.query(query, [email], (error, results) => {
+        if (error) {
+            console.log(error);
+            // handle error
+        } else {
+            if (results.length > 0) {
+                // res.json({ exists: true });
+                console.log("User does exist");
+                console.log(email);
+                // Generate OTP
+                const otp = otpGenerator.generate(6, { digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+                req.session.email = email;
+                req.session.otp = otp;
+                req.session.userId = results[0].user_id
+                console.log("email from send otp session" + req.session.email);
+                console.log("otp from send otp session" + req.session.otp);
+                // Set up Nodemailer mail options
+
+                let mailOptions = {
+                    from: 'no-reply@shopannies.in', // replace with your actual email address
+                    to: email, // replace with the recipient's email address
+                    subject: 'OTP from shopannies',
+                    text: `Your OTP is: ${otp}`
+                };
+
+
+
+                // Send email
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.error(error);
+                        // res.status(500).json({ error: 'Error sending OTP' });
+                    } else {
+                        console.log(`OTP sent to ${email}: ${otp}`);
+                        res.redirect('/verify-otp');
+                    }
+                });
+
+
+
+                // handle user exists case
+            } else {
+                console.log("User exists");
+                res.send('<script>alert("Account with this email does not exists. Please login or use a different email.");window.location.href="/authRegister";</script>');
+
+
+            }
+        }
+    });
+
+
+});
 
 
 app.get('/verify-otp', checkEmail, checkOTP, (req, res) => {
@@ -603,6 +660,22 @@ app.get('/registerUser', checkVerified, (req, res) => {
 
 
 });
+app.get('/forgotPasswordChange', checkVerified, (req, res) => {
+    // req.session.destroy(err => {
+    //     if (err) {
+    //         console.log(err);
+    //     } else {
+    //         // res.redirect('/');
+    //     }
+    // });
+    // res.clearCookie('verified');
+
+    res.render(path.join(__dirname + '/public/forgetPasswordChangePassword'), { email: req.session.email });
+    req.session.verified = false;
+    delete req.session.verified;
+
+
+});
 
 app.post('/verify-otp', checkEmail, checkOTP, (req, res) => {
 
@@ -617,9 +690,15 @@ app.post('/verify-otp', checkEmail, checkOTP, (req, res) => {
         // res.cookie('verified', 'true', { maxAge: 2 * 60 * 1000 });
         // res.cookie('email', email, { maxAge: 2 * 60 * 1000 });
         console.log(req.session.verified);
-        res.redirect('/registerUser');
+        if (req.session.isForgetPassword) {
+            res.redirect('/forgotPasswordChange');
+
+        } else {
+            res.redirect('/registerUser');
+
+        }
     } else {
-        res.send('Invalid OTP');
+        res.send('<script>alert("OTP is invalid.");window.location.href="/authRegister";</script>');
     }
     // req.session.destroy(err => {
     //     if (err) {
@@ -721,6 +800,9 @@ const userRedirectHome = (req, res, next) => {
 app.get('/loginUser', userRedirectHome, (req, res) => {
     res.render(path.join(__dirname + '/public/login'));
 });
+app.get('/forgotPassword', userRedirectHome, (req, res) => {
+    res.render(path.join(__dirname + '/public/forgot-password'));
+});
 app.get('/cart/total', function(req, res) {
     const userId = req.session.userId;
     const query = `
@@ -757,6 +839,27 @@ app.get('/userHome', userRedirectLogin, function(request, response) {
 
             console.log(wishListTotal); // move console.log inside the callback function
             response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal, wishListTotal: wishListTotal });
+        });
+        console.log(cartTotal); // move console.log inside the callback function
+        // response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal });
+    });
+});
+app.get('/userShop', userRedirectLogin, function(request, response) {
+    const email = request.session.email;
+    console.log("Fetching cart count");
+    console.log(request.session.userId);
+    const query = `SELECT COUNT(*) FROM cart_items WHERE user_id = ${request.session.userId}`;
+    const query2 = `SELECT COUNT(*) FROM wishlist WHERE user_id = ${request.session.userId}`;
+    var cartTotal = 0;
+    dbConn.query(query, (err, results) => {
+        if (err) console.log(err);
+        cartTotal = results[0]['COUNT(*)'];
+        dbConn.query(query2, (err, results) => {
+            if (err) console.log(err);
+            wishListTotal = results[0]['COUNT(*)'];
+
+            console.log(wishListTotal); // move console.log inside the callback function
+            response.render(path.join(__dirname + '/public/shop'), { email: email, cartTotal: cartTotal, wishListTotal: wishListTotal });
         });
         console.log(cartTotal); // move console.log inside the callback function
         // response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal });
@@ -1044,6 +1147,10 @@ app.get('/updatePassword', userRedirectLogin, function(request, response) {
     response.render(path.join(__dirname + '/public/setting'));
 
 });
+// app.get('/forgotPasswordChange', function(request, response) {
+//     response.render(path.join(__dirname + '/public/setting'));
+
+// });
 
 app.get('/orderPage', userRedirectLogin, function(request, response) {
     const user_id = request.session.userId
@@ -1136,6 +1243,42 @@ app.put('/updatePassword', async(req, res) => {
 
 
                 }
+
+
+
+            }
+        });
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.put('/updateForgotPassword', async(req, res) => {
+    const userId = req.session.userId
+    try {
+        const { newPassword } = req.body;
+
+        dbConn.query('SELECT * FROM users2 WHERE user_id = ?', userId, async(error, results) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send('Internal Server Error');
+            } else {
+
+                const result = await dbConn.query(
+                    `UPDATE users2 SET 
+                    password = ?
+                 WHERE user_id = ?`, [newPassword, userId]
+                );
+                req.session.isForgetPassword = false
+
+                delete req.session.email;
+                delete req.session.verified;
+
+
+                res.json({ updated: true, message: "User password updated" });
+
 
 
 

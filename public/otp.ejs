@@ -65,7 +65,7 @@
                         <div class="fxt-footer">
                             <div class="fxt-transformY-50 fxt-transition-delay-7">
                                 <p>
-                                    Not received your code?<button class="fxt-btn-resend" type="submit">
+                                    Not received your code?<button onclick="resendOtp()" class="fxt-btn-resend" type="button">
                       Resend code</button
                     ><span class="text-or"></span
                     ><button class="fxt-btn-resend" type="submit"></button>
@@ -79,6 +79,21 @@
     </section>
     <!-- jquery-->
     <script src=" LoginStyle/js/jquery-3.5.0.min.js"></script>
+    <script>
+        function resendOtp() {
+            const email = "<%= email %>";
+            axios
+                .post("/send-otp", {
+                    email
+                })
+                .then(function(response) {
+                    console.log("OTP sent successfully");
+                })
+                .catch(function(error) {
+                    console.log("Error sending OTP", error);
+                });
+        }
+    </script>
     <!-- Popper js -->
     <script src=" LoginStyle/js/popper.min.js"></script>
     <!-- Bootstrap js -->

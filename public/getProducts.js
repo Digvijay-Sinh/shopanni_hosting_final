@@ -221,6 +221,125 @@ axios.get('http://localhost:5000/api/v1/products')
     .catch(error => console.log(error));
 
 
+    // Make an Axios request to fetch the categories
+axios.get(`http://localhost:5000/api/v1/categories`)
+.then(function(response) {
+    var categories = response.data;
+    const categoriesFilter = document.getElementById("categoriesFilter");
+
+
+    console.log("Fetched categories");
+    // Create a button for each category
+    categories.forEach(category => {
+        const button = document.createElement("button");
+        button.classList.add("stext-106", "cl6", "hov1", "bor3", "trans-04", "m-r-32", "m-tb-5");
+        button.setAttribute("data-filter", "category.category_id");
+        button.innerText = category.name;
+        button.addEventListener("click",async () => {
+            const responseWishlist = await axios.get('/wishlist');
+            const wishlistItems = responseWishlist.data;
+            console.log("Clicked with category name:" + category.name);
+            axios.get('http://localhost:5000/api/v1/products')
+    .then(async response => {
+
+            // Make an Axios GET request to fetch the updated cart total
+            axios.get(`/cart/total`)
+                .then(response => {
+                    const cartTotal = response.data.cartTotal.toFixed(2);
+
+                    // Update the HTML content of the cart total element with the new amount
+                    const cartTotalAmountEl = document.getElementById('cart-total-amount');
+                    cartTotalAmountEl.textContent = `₹ ${cartTotal}`;
+
+                    console.log(`Updated cart total for user to $${cartTotal}`);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            const data = response.data;
+            // Get the input elements
+            let filteredProducts = data.filter(product => product.category_id === category.category_id);
+            const productGrid = document.getElementById('productContainer');
+            productGrid.innerHTML = ""
+            const responseWishlist = await axios.get('/wishlist');
+            const wishlistItems = responseWishlist.data;
+
+            filteredProducts.forEach(item => {
+                        const productGrid = document.getElementById('productContainer');
+
+                        const productInWishlist = wishlistItems.some(product => product.product_id == item.product_id);
+
+                        console.log("default sorting");
+                        const newProductItem = document.createElement('div');
+                        newProductItem.classList.add('col-sm-6', 'col-md-4', 'col-lg-3', 'p-b-35', 'isotope-item', 'women');
+
+                        axios.get(`http://localhost:5000/images/${item.product_id}`)
+                            .then(response => {
+                                    const imageData = response.data;
+
+                                    const imageName = imageData.image_url1;
+                                    console.log(imageName);
+
+                                    newProductItem.innerHTML = `
+                        <div class="block2">
+                            <div class="block2-pic hov-img0">
+                                <img height="334.34px" src="images/${imageName}" alt="IMG-PRODUCT">
+    
+                                <a href="http://localhost:5000/productView/${item.product_id}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 ">
+                                    Quick View
+                                </a>
+                            </div>
+    
+                            <div class="block2-txt flex-w flex-t p-t-14">
+                                <div class="block2-txt-child1 flex-col-l ">
+                                    <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                        ${item.name}
+                                    </a>
+    
+                                    <span class="stext-105 cl3">
+                                       ₹${item.price}
+                                    </span>
+                                </div>
+    
+                                <div id="wishlist-${item.product_id}" onclick="wishlist(${item.product_id})" class="block2-txt-child2 flex-r p-t-3">
+                                    <a  class="btn-addwish-b2 dis-block pos-relative ">
+                                        ${productInWishlist? `
+                                        <img id="prod-filled-${item.product_id}" src="images/icons/icon-heart-02.png" alt="ICON">
+
+                                        ` :`
+                                        <img id="prod-empty-${item.product_id}" src="images/icons/icon-heart-01.png" alt="ICON">
+
+                                        `}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                    console.log("product adding reached");
+                    productGrid.appendChild(newProductItem);
+                    setTimeout(() => {
+                        const productGrid = document.getElementById('productContainer');
+                        const productGridHeight = productGrid.scrollHeight;
+                        productGrid.style.height = productGridHeight + "px";
+                    }, 700);
+
+                })
+                .catch(error => console.log(error));
+
+        });
+    })
+    .catch(error => console.log(error));
+        });
+
+        categoriesFilter.appendChild(button);
+    });
+})
+.catch(error => {
+    console.error("Error fetching categories:", error);
+});
+
+
+
 async function wishlist(productId) {
     const response = await axios.get('/wishlist');
     const wishlistItems = response.data;

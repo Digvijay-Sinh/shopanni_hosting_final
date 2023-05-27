@@ -937,13 +937,13 @@ app.post('/userLogin', (req, res) => {
             } else {
                 // res.redirect('http://127.0.0.1:5501/admin/Admin-login.html');
                 console.log("Password incorrect");
-                res.redirect('/userHome')
+                res.send('Password incorrect');
 
             }
         } else {
             // res.redirect('http://127.0.0.1:5501/admin/Admin-login.html');
             // res.send("Login unSuccessful")
-            res.redirect('/userHome')
+            res.send('Password incorrect')
 
         }
     });
@@ -1134,7 +1134,17 @@ app.get('/getOrderByUser', (req, res) => {
 
 app.get('/cartPage', userRedirectLogin, function(request, response) {
     const user_id = request.session.userId
-    response.render(path.join(__dirname + '/public/shoping-cart'));
+    const query2 = `SELECT COUNT(*) FROM wishlist WHERE user_id = ${request.session.userId}`;
+    var cartTotal = 0;
+    dbConn.query(query2, (err, results) => {
+        if (err) console.log(err);
+        var wishListTotal = results[0]['COUNT(*)'];
+
+        console.log(wishListTotal); // move console.log inside the callback function
+        response.render(path.join(__dirname + '/public/shoping-cart'), { wishListTotal: wishListTotal });
+
+    });
+    // response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal });
 
 });
 app.get('/accountDetails', userRedirectLogin, function(request, response) {

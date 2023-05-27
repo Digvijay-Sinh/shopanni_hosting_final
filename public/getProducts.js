@@ -134,6 +134,7 @@ axios.get(`http://localhost:5000/api/v1/categories`)
 
 axios.get('http://localhost:5000/api/v1/products')
     .then(async response => {
+            // Display the spinner
 
             // Make an Axios GET request to fetch the updated cart total
             axios.get(`/cart/total`)
@@ -205,6 +206,18 @@ axios.get('http://localhost:5000/api/v1/products')
                             </div>
                         </div>
                     `
+
+            //         document.getElementById('spinner').style.display = 'block';
+
+            // // Simulate loading dynamic content
+            // setTimeout(function() {
+            //     // Hide the spinner
+            //     document.getElementById('spinner').style.display = 'none';
+        
+            //     // Display the dynamic content
+            //     document.getElementById('content').style.display = 'block';
+            // }, 3000); // Adjust the delay time as needed
+        
                     console.log("product adding reached");
                     productGrid.appendChild(newProductItem);
                     setTimeout(() => {
@@ -227,6 +240,7 @@ axios.get(`http://localhost:5000/api/v1/categories`)
     var categories = response.data;
     const categoriesFilter = document.getElementById("categoriesFilter");
 
+   
 
     console.log("Fetched categories");
     // Create a button for each category
@@ -236,6 +250,17 @@ axios.get(`http://localhost:5000/api/v1/categories`)
         button.setAttribute("data-filter", "category.category_id");
         button.innerText = category.name;
         button.addEventListener("click",async () => {
+            // document.getElementById('spinner').style.display = 'block';
+
+            // // Simulate loading dynamic content
+            // setTimeout(function() {
+            //     // Hide the spinner
+            //     document.getElementById('spinner').style.display = 'none';
+        
+            //     // Display the dynamic content
+            //     document.getElementById('content').style.display = 'block';
+            // }, 3000); // Adjust the delay time as needed
+        
             const responseWishlist = await axios.get('/wishlist');
             const wishlistItems = responseWishlist.data;
             console.log("Clicked with category name:" + category.name);
@@ -321,7 +346,7 @@ axios.get(`http://localhost:5000/api/v1/categories`)
                         const productGrid = document.getElementById('productContainer');
                         const productGridHeight = productGrid.scrollHeight;
                         productGrid.style.height = productGridHeight + "px";
-                    }, 700);
+                    }, 200);
 
                 })
                 .catch(error => console.log(error));

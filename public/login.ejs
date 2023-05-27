@@ -25,6 +25,7 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href=" LoginStyle/style.css" />
+    <script src="vendor/sweetalert/sweetalert.min.js"></script>
   </head>
 
   <body>
@@ -63,7 +64,7 @@
               <div class="fxt-form">
                 <h2>Log In</h2>
                 <p>Log in to continue in our website</p>
-                <form action="/userLogin" method="POST">
+                <form id="loginForm">
                   <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-1">
                       <input
@@ -94,7 +95,9 @@
                         <button type="submit" class="fxt-btn-fill">
                           Log in
                         </button>
-                        <a href="forgot-password.html" class="switcher-text2"
+                        <a
+                          href="http://localhost:5000/forgotPassword"
+                          class="switcher-text2"
                           >Forgot Password</a
                         >
                       </div>
@@ -162,5 +165,51 @@
     <script src=" LoginStyle/js/validator.min.js"></script>
     <!-- Custom Js -->
     <script src=" LoginStyle/js/main.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevents the form from submitting and refreshing the page
+
+          const email = document.querySelector('input[name="email"]').value;
+          const password = document.querySelector(
+            'input[name="password"]'
+          ).value;
+
+          axios
+            .post("/userLogin", {
+              email,
+              password,
+            })
+            .then(function (response) {
+              // Handle the response from the server
+              console.log(response.data);
+              if (response.data === "Password incorrect") {
+                swal(
+                  "Incorrect credentials",
+                  "Username or password invalid",
+                  "error"
+                ).then(() => {
+                  location.reload();
+                });
+              } else {
+                location.replace("http://localhost:5000/userHome");
+              }
+              // Redirect the user to the desired page if needed
+            })
+            .catch(function (error) {
+              // Handle any errors
+              console.log(error);
+              alert("An error occurred while logging in.");
+            });
+        });
+    </script>
   </body>
 </html>

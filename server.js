@@ -1178,6 +1178,17 @@ app.get('/wishlistPage', userRedirectLogin, function(request, response) {
 
 });
 
+app.get('/terms', function(request, response) {
+    response.render(path.join(__dirname + '/public/T&C'));
+});
+
+app.get('/about', function(request, response) {
+    response.render(path.join(__dirname + '/public/about'));
+});
+app.get('/contact', function(request, response) {
+    response.render(path.join(__dirname + '/public/contact'));
+});
+
 
 app.put('/cart', async(req, res) => {
     try {

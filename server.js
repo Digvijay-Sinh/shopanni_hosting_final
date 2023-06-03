@@ -183,6 +183,54 @@ app.post('/upload', (req, res) => {
     });
 });
 
+app.put('/updateSlider/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const { slider1text1, slider1text2 } = req.body;
+
+    const sql = `UPDATE slider SET text1 = ?, text2 = ? WHERE id = ?`;
+    const values = [slider1text1, slider1text2, id];
+
+    dbConn.query(sql, values, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('Error updating slider');
+        } else {
+            console.log('Slider updated successfully');
+            res.status(200).send('Slider updated successfully');
+        }
+    });
+});
+app.post('/uploadSliderImage', (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(400).send({ message: err });
+        }
+
+
+        const renamedFiles = req.files
+        for (let index = 0; index < renamedFiles.length; index++) {
+            const element = renamedFiles[index];
+            console.log(element.filename);
+        }
+
+        const sql = `UPDATE slider
+        SET image_name = ?
+        WHERE id = ?;
+        `;
+
+        dbConn.query(sql, [renamedFiles[0].filename, req.body.id], function(err, result) {
+            if (err) throw err;
+            console.log(`Inserted ${result.affectedRows} rows into the images table.`);
+        });
+
+        // console.log(req.files); // Log uploaded files to console
+        res.status(200).send({ message: 'Upload successful!' });
+
+    });
+});
+
 app.get('/image/:name', (req, res) => {
     const imageName = req.params.name;
     const imagePath = path.join(__dirname, './public/images', imageName);
@@ -371,6 +419,9 @@ app.get('/partialDemo', redirectLogin, function(request, response) {
 
 app.get('/add_product', redirectLogin, (req, res) => {
     res.render(path.join(__dirname + '/public/admin/html/Product'));
+})
+app.get('/add_slider', redirectLogin, (req, res) => {
+    res.render(path.join(__dirname + '/public/admin/html/Slider'));
 })
 app.get('/view_products', redirectLogin, (req, res) => {
     res.render(path.join(__dirname + '/public/admin/html/ViewProduct'))
@@ -837,8 +888,19 @@ app.get('/userHome', userRedirectLogin, function(request, response) {
             if (err) console.log(err);
             wishListTotal = results[0]['COUNT(*)'];
 
+            const query = 'SELECT * FROM slider';
+
+            dbConn.query(query, (error, results) => {
+                if (error) {
+                    console.error('Error fetching slider data:', error);
+                    response.status(500).send('Internal Server Error');
+                } else {
+                    response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal, wishListTotal: wishListTotal, sliders: results });
+
+                }
+            });
+
             console.log(wishListTotal); // move console.log inside the callback function
-            response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal, wishListTotal: wishListTotal });
         });
         console.log(cartTotal); // move console.log inside the callback function
         // response.render(path.join(__dirname + '/public/userHome'), { email: email, cartTotal: cartTotal });
@@ -868,7 +930,17 @@ app.get('/userShop', userRedirectLogin, function(request, response) {
 
 app.get('/', function(request, response) {
 
-    response.render(path.join(__dirname + '/public/withoutLoginHome'));
+    const query = 'SELECT * FROM slider';
+
+    dbConn.query(query, (error, results) => {
+        if (error) {
+            console.error('Error fetching slider data:', error);
+            response.status(500).send('Internal Server Error');
+        } else {
+            response.render(path.join(__dirname + '/public/withoutLoginHome'), { sliders: results });
+        }
+    });
+
 
 });
 
@@ -1751,5 +1823,18 @@ app.get('/get-variant-quantity', (req, res) => {
         const variantQuantity = results[0].variant_quantity;
         console.log(variantQuantity);
         res.send(variantQuantity.toString());
+    });
+});
+
+app.get('/slider', (req, res) => {
+    const query = 'SELECT * FROM slider';
+
+    dbConn.query(query, (error, results) => {
+        if (error) {
+            console.error('Error fetching slider data:', error);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.send(results)
+        }
     });
 });

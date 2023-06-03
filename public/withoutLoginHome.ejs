@@ -361,7 +361,7 @@
         <div class="slick1">
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-01.jpg)"
+            style="background-image: url('images/<%= sliders[0].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -371,7 +371,7 @@
                   data-delay="0"
                 >
                   <span class="ltext-101 cl2 respon2">
-                    Women Collection 2018
+                    <%= sliders[0].text1 %>
                   </span>
                 </div>
 
@@ -381,7 +381,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    NEW SEASON
+                    <%= sliders[0].text2 %>
                   </h2>
                 </div>
 
@@ -403,7 +403,7 @@
 
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-02.jpg)"
+            style="background-image: url('images/<%= sliders[1].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -412,7 +412,9 @@
                   data-appear="rollIn"
                   data-delay="0"
                 >
-                  <span class="ltext-101 cl2 respon2"> Men New-Season </span>
+                  <span class="ltext-101 cl2 respon2"
+                    ><%= sliders[1].text1 %>
+                  </span>
                 </div>
 
                 <div
@@ -421,7 +423,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    Jackets & Coats
+                    <%= sliders[1].text2 %>
                   </h2>
                 </div>
 
@@ -443,7 +445,7 @@
 
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-03.jpg)"
+            style="background-image: url('images/<%= sliders[2].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -453,7 +455,7 @@
                   data-delay="0"
                 >
                   <span class="ltext-101 cl2 respon2">
-                    Men Collection 2018
+                    <%= sliders[2].text1 %>
                   </span>
                 </div>
 
@@ -463,7 +465,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    New arrivals
+                    <%= sliders[2].text2 %>
                   </h2>
                 </div>
 

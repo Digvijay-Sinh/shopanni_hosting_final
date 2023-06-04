@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2023 at 01:43 PM
+-- Generation Time: Jun 04, 2023 at 02:34 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -61,6 +61,7 @@ CREATE TABLE `cart_items` (
 
 INSERT INTO `cart_items` (`cart_item_id`, `user_id`, `product_id`, `product_size_id`, `quantity`, `colour`) VALUES
 (85, 12, '1682355686619', 3, 2, 'white'),
+(119, 16, '1683634414486', 0, 2, 'Red'),
 (112, 14, '1683634414486', 0, 2, 'Red');
 
 -- --------------------------------------------------------
@@ -239,26 +240,33 @@ CREATE TABLE `orders2` (
   `razorpay_payment_id` varchar(255) DEFAULT NULL,
   `razorpay_order_id` varchar(255) DEFAULT NULL,
   `razorpay_signature` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `totalPaid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders2`
 --
 
-INSERT INTO `orders2` (`orders_id`, `user_id`, `name`, `address`, `district`, `state`, `phone`, `email`, `total`, `created_at`, `updated_at`, `payment_method`, `landmark`, `razorpay_payment_id`, `razorpay_order_id`, `razorpay_signature`, `status`) VALUES
-(18, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:23:33', '2023-05-24 03:32:07', 'Online', '', NULL, NULL, NULL, 'Paid'),
-(19, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:34:19', '2023-05-24 03:32:16', 'Online', '', NULL, NULL, NULL, 'Paid'),
-(20, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:41:29', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending'),
-(21, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:45:37', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending'),
-(22, 14, '', '', '', '', '', '', '433720.00', '2023-05-11 12:44:57', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending'),
-(23, 14, '', '', '', '', '', '', '279800.00', '2023-05-14 15:13:38', '2023-05-14 15:13:38', '', '', NULL, NULL, NULL, 'Pending'),
-(24, 1, 'Sdc', 'sdc', 'Ahmedabad', 'Gujarat', '8888877777', 'dsc13103@gmail.com', '109930.00', '2023-05-15 05:24:03', '2023-05-15 05:26:29', '', 'Landmark demo', 'pay_Lpp3NHUEczjRcl', 'order_Lpp12CQRlx4lD0', '97b13709d802408d3b1030b86d2a9e14ea6cdf69a356e8b74b8afebb735d7b27', 'Paid'),
-(25, 1, '', '', '', '', '', '', '2078.60', '2023-05-15 06:36:55', '2023-05-15 06:36:55', '', '', NULL, NULL, NULL, 'Pending'),
-(26, 1, 'Sumit ', 'Gurukul road', 'Ahmedabad', 'Gujarat', '8888877777', 'sumit@sumit.com', '5036400.00', '2023-05-15 07:15:10', '2023-05-15 07:15:45', '', 'Landmark', 'pay_Lpqume2uxNRnVx', 'order_LpquNpe3xRyx3o', '480d864a0e9f6ea44b4ecb9f2e1830b6d2a5980e11b82687e61baf3dccceffe9', 'Paid'),
-(27, 1, '', '', '', '', '', '', '15990000.00', '2023-05-15 07:17:10', '2023-05-15 07:17:10', '', '', NULL, NULL, NULL, 'Pending'),
-(28, 1, '', '', '', '', '', '', '11290930.00', '2023-05-15 07:44:35', '2023-05-15 07:44:35', '', '', NULL, NULL, NULL, 'Pending'),
-(29, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'final@final.com', '391720.00', '2023-05-24 06:29:58', '2023-05-24 06:30:42', '', 'landmark', 'pay_LtOxg8teUbXi1S', 'order_LtOx6F2MrIqiIl', '79e32bb2009899e40d2aab0f59c61ca900d93f8ea144f327b0f692ea7de562bd', 'Paid');
+INSERT INTO `orders2` (`orders_id`, `user_id`, `name`, `address`, `district`, `state`, `phone`, `email`, `total`, `created_at`, `updated_at`, `payment_method`, `landmark`, `razorpay_payment_id`, `razorpay_order_id`, `razorpay_signature`, `status`, `totalPaid`) VALUES
+(18, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:23:33', '2023-05-24 03:32:07', 'Online', '', NULL, NULL, NULL, 'Paid', 0),
+(19, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:34:19', '2023-05-24 03:32:16', 'Online', '', NULL, NULL, NULL, 'Paid', 0),
+(20, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:41:29', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending', 0),
+(21, 14, '', '', '', '', '', '', '7595.00', '2023-05-11 10:45:37', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending', 0),
+(22, 14, '', '', '', '', '', '', '433720.00', '2023-05-11 12:44:57', '2023-05-14 12:07:00', 'Online', '', NULL, NULL, NULL, 'Pending', 0),
+(23, 14, '', '', '', '', '', '', '279800.00', '2023-05-14 15:13:38', '2023-05-14 15:13:38', '', '', NULL, NULL, NULL, 'Pending', 0),
+(24, 1, 'Sdc', 'sdc', 'Ahmedabad', 'Gujarat', '8888877777', 'dsc13103@gmail.com', '109930.00', '2023-05-15 05:24:03', '2023-05-15 05:26:29', '', 'Landmark demo', 'pay_Lpp3NHUEczjRcl', 'order_Lpp12CQRlx4lD0', '97b13709d802408d3b1030b86d2a9e14ea6cdf69a356e8b74b8afebb735d7b27', 'Paid', 0),
+(25, 1, '', '', '', '', '', '', '2078.60', '2023-05-15 06:36:55', '2023-05-15 06:36:55', '', '', NULL, NULL, NULL, 'Pending', 0),
+(26, 1, 'Sumit ', 'Gurukul road', 'Ahmedabad', 'Gujarat', '8888877777', 'sumit@sumit.com', '5036400.00', '2023-05-15 07:15:10', '2023-05-15 07:15:45', '', 'Landmark', 'pay_Lpqume2uxNRnVx', 'order_LpquNpe3xRyx3o', '480d864a0e9f6ea44b4ecb9f2e1830b6d2a5980e11b82687e61baf3dccceffe9', 'Paid', 0),
+(27, 1, '', '', '', '', '', '', '15990000.00', '2023-05-15 07:17:10', '2023-05-15 07:17:10', '', '', NULL, NULL, NULL, 'Pending', 0),
+(28, 1, '', '', '', '', '', '', '11290930.00', '2023-05-15 07:44:35', '2023-05-15 07:44:35', '', '', NULL, NULL, NULL, 'Pending', 0),
+(29, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'final@final.com', '391720.00', '2023-05-24 06:29:58', '2023-05-24 06:30:42', '', 'landmark', 'pay_LtOxg8teUbXi1S', 'order_LtOx6F2MrIqiIl', '79e32bb2009899e40d2aab0f59c61ca900d93f8ea144f327b0f692ea7de562bd', 'Paid', 0),
+(30, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'sdc13103@gmail.com', '151900.00', '2023-05-25 00:28:00', '2023-05-25 00:28:00', '', 'landmark', NULL, NULL, NULL, 'Pending', 0),
+(31, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'sdc13103@gmail.com', '151900.00', '2023-05-25 00:28:09', '2023-05-25 00:28:09', '', 'landmark', NULL, NULL, NULL, 'Pending', 0),
+(32, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'sdc13103@gmail.com', '151900.00', '2023-05-25 00:28:11', '2023-05-25 00:28:11', '', 'landmark', NULL, NULL, NULL, 'Pending', 0),
+(33, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'sdc13103@gmail.com', '151900.00', '2023-05-25 00:28:13', '2023-05-25 00:28:13', '', 'landmark', NULL, NULL, NULL, 'Pending', 0),
+(34, 1, 'Demo final', 'address final ', 'Ahmedabad', 'Gujarat', '9898989898', 'sdc13103@gmail.com', '151900.00', '2023-05-25 00:33:35', '2023-05-25 00:34:18', '', 'landmark', 'pay_LthQHnK4lXS3ju', 'order_LthPkbfvHEAvm2', '225d1511aa725601c13906e67e3a28500d240244d2c0b7bf70ace0f5f7a4f9ae', 'Paid', 0),
+(35, 1, 'wddkjbwkjb', 'kjbfwej', 'Ahmedabad', 'Gujarat', '8787878787', 'sdc13103@gmail.com', '13000.00', '2023-05-30 07:05:02', '2023-05-30 07:10:14', '', 'landmark', 'pay_LvmptraFvMpFj2', 'order_Lvmke5Nrg6hjKS', 'e44ea7e39417416772a5eb41f4ee187e1e48c231b3dfdb8399f263e4c997af12', 'Paid', 0);
 
 -- --------------------------------------------------------
 
@@ -301,7 +309,13 @@ INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `product_s
 (128, 27, '1683713718043', 0, 100, 'Blue'),
 (129, 28, '1683713718043', 0, 100, 'Blue'),
 (130, 28, '1683634414486', 0, 1, 'Blue'),
-(131, 29, '1683634414486', 0, 4, 'Blue');
+(131, 29, '1683634414486', 0, 4, 'Blue'),
+(132, 30, '1683634414486', 0, 1, 'Blue'),
+(133, 31, '1683634414486', 0, 1, 'Blue'),
+(134, 32, '1683634414486', 0, 1, 'Blue'),
+(135, 33, '1683634414486', 0, 1, 'Blue'),
+(136, 34, '1683634414486', 0, 1, 'Blue'),
+(137, 35, '1682355878978', 0, 2, 'Green');
 
 -- --------------------------------------------------------
 
@@ -325,11 +339,11 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `image_url`, `category_id`, `created_at`, `updated_at`) VALUES
-('1683634414486', 'Kurti 2', 'Demo for Kurti 2\n                        ', '1399.00', '', 2, '2023-05-09 17:45:59', '2023-05-09 17:45:59'),
-('1682355878978', '5', '5                        ', '5.00', '', 1, '2023-05-04 08:16:10', '2023-04-09 08:16:10'),
-('1682355798401', '4', '4                        ', '4.00', '', 2, '2023-05-05 08:16:10', '2023-05-08 08:17:08'),
-('1682355686619', '3', '3                        ', '3.00', '', 3, '2023-05-06 08:16:10', '2023-05-06 08:16:10'),
-('1683713718043', 'Kurti 3', 'Description of kurti 3                        ', '1599.00', '', 2, '2023-05-10 15:46:45', '2023-05-10 15:46:45');
+('1683634414486', 'Kurti 2', 'Demo for Kurti 2\n                        ', '1399.00', '', 18, '2023-05-09 17:45:59', '2023-05-25 17:06:06'),
+('1682355878978', '5', '5                        ', '5.00', '', 19, '2023-05-04 08:16:10', '2023-05-25 17:06:10'),
+('1682355798401', '4', '4                        ', '4.00', '', 20, '2023-05-05 08:16:10', '2023-05-25 17:06:14'),
+('1682355686619', '3', '3                        ', '3.00', '', 23, '2023-05-06 08:16:10', '2023-05-25 17:06:18'),
+('1683713718043', 'Kurti 3', 'Description of kurti 3                        ', '1599.00', '', 22, '2023-05-10 15:46:45', '2023-05-25 17:06:22');
 
 -- --------------------------------------------------------
 
@@ -474,6 +488,30 @@ INSERT INTO `size` (`size_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `slider`
+--
+
+CREATE TABLE `slider` (
+  `id` int(11) NOT NULL,
+  `image_name` varchar(255) NOT NULL,
+  `text1` varchar(255) NOT NULL,
+  `text2` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `image_name`, `text1`, `text2`, `created_at`, `updated_at`) VALUES
+(1, 'images_2023-05-23 21 51 58.png', 'Demo title aaaaaa', 'Demo content updTED', '2023-05-31 11:20:49', '2023-06-03 23:19:56'),
+(2, 'images_2023-05-23 21 53 21.png', 'abcd', 'abcd updtaed', '2023-05-31 11:20:49', '2023-06-03 23:18:57'),
+(3, 'images_2023-05-23 21 10 35.png', 'demo title 3 updated', 'sanbj,saas', '2023-05-31 11:20:49', '2023-06-03 23:19:41');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -537,7 +575,9 @@ INSERT INTO `users2` (`user_id`, `name`, `email`, `number`, `address1`, `address
 (11, 'user2', '112@123.com', '1111111111', 'KADIYANA', 'add2', 'state1', 'district3', '363330', 'password123'),
 (12, 'User final', 'dsc131034@gmail.com', '9739892812', 'add1', 'add2', 'Gujarat', 'Ahmedabad', '363330', 'password123'),
 (13, 'Sumit', 'temptohai@drowblock.com', '8888888888', 'Address line1 ', 'Address line2', 'Gujarat', 'Ahmedabad', '123456', 'password123'),
-(14, 'Amit updated', 'updtaedjanamit2001@yahoo.com', '8888888888', 'address line 1 updated', 'address line 2 updated', 'Rajasthan', 'Jaipur', '998800', 'password123');
+(14, 'Amit updated', 'updtaedjanamit2001@yahoo.com', '8888888888', 'address line 1 updated', 'address line 2 updated', 'Rajasthan', 'Jaipur', '998800', 'password123'),
+(15, 'fffff', 'dig@digvijay.com', '2323232323', 'ejlgelj', 'lkngerlkn', 'Gujarat', 'Ahmedabad', '363310', 'new'),
+(16, 'hello', '123@123.com', '8787877878', 'address 123', 'address234', 'Gujarat', 'Ahmedabad', '363330', 'Dsc13103@');
 
 -- --------------------------------------------------------
 
@@ -556,8 +596,9 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`wishlist_id`, `user_id`, `product_id`) VALUES
-(27, 1, '1682355686619'),
-(28, 13, '1682355878978');
+(37, 1, '1682355798401'),
+(28, 13, '1682355878978'),
+(38, 16, '1683713718043');
 
 --
 -- Indexes for dumped tables
@@ -667,6 +708,12 @@ ALTER TABLE `size`
   ADD PRIMARY KEY (`size_id`);
 
 --
+-- Indexes for table `slider`
+--
+ALTER TABLE `slider`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -701,7 +748,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -731,13 +778,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `orders2`
 --
 ALTER TABLE `orders2`
-  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `orders_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `product_details`
@@ -758,6 +805,12 @@ ALTER TABLE `size`
   MODIFY `size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -767,13 +820,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users2`
 --
 ALTER TABLE `users2`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `wishlist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

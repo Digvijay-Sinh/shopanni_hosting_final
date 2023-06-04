@@ -118,7 +118,9 @@
             </div>
 
             <div class="right-top-bar flex-w h-full">
-              <a href="terms" class="flex-c-m trans-04 p-lr-25"> Help & FAQs </a>
+              <a href="terms" class="flex-c-m trans-04 p-lr-25">
+                Help & FAQs
+              </a>
 
               <a
                 href="http://localhost:5000/accountDetails"
@@ -211,7 +213,7 @@
       <div class="wrap-header-mobile">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-          <a href="index.html"
+          <a href="http://localhost:5000/userHome"
             ><img src="LoginStyle/img/logo2.png" alt="IMG-LOGO"
           /></a>
         </div>
@@ -259,9 +261,16 @@
 
           <li>
             <div class="right-top-bar flex-w h-full">
-              <a href="terms" class="flex-c-m p-lr-10 trans-04"> Help & FAQs </a>
+              <a href="terms" class="flex-c-m p-lr-10 trans-04">
+                Help & FAQs
+              </a>
 
-              <a href="http://localhost:5000/accountDetails" class="flex-c-m p-lr-10 trans-04"> My Account </a>
+              <a
+                href="http://localhost:5000/accountDetails"
+                class="flex-c-m p-lr-10 trans-04"
+              >
+                My Account
+              </a>
 
               <a href="#" class="flex-c-m p-lr-10 trans-04"> EN </a>
 
@@ -369,7 +378,7 @@
         <div class="slick1">
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-01.jpg)"
+            style="background-image: url('images/<%= sliders[0].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -379,7 +388,7 @@
                   data-delay="0"
                 >
                   <span class="ltext-101 cl2 respon2">
-                    Women Collection 2018
+                    <%= sliders[0].text1 %>
                   </span>
                 </div>
 
@@ -389,7 +398,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    NEW SEASON
+                    <%= sliders[0].text2 %>
                   </h2>
                 </div>
 
@@ -411,7 +420,7 @@
 
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-02.jpg)"
+            style="background-image: url('images/<%= sliders[1].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -420,7 +429,9 @@
                   data-appear="rollIn"
                   data-delay="0"
                 >
-                  <span class="ltext-101 cl2 respon2"> Men New-Season </span>
+                  <span class="ltext-101 cl2 respon2"
+                    ><%= sliders[1].text1 %>
+                  </span>
                 </div>
 
                 <div
@@ -429,7 +440,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    Jackets & Coats
+                    <%= sliders[1].text2 %>
                   </h2>
                 </div>
 
@@ -451,7 +462,7 @@
 
           <div
             class="item-slick1"
-            style="background-image: url(images/slide-03.jpg)"
+            style="background-image: url('images/<%= sliders[2].image_name %>')"
           >
             <div class="container h-full">
               <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -461,7 +472,7 @@
                   data-delay="0"
                 >
                   <span class="ltext-101 cl2 respon2">
-                    Men Collection 2018
+                    <%= sliders[2].text1 %>
                   </span>
                 </div>
 
@@ -471,7 +482,7 @@
                   data-delay="800"
                 >
                   <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                    New arrivals
+                    <%= sliders[2].text2 %>
                   </h2>
                 </div>
 
@@ -738,7 +749,9 @@
               </li>
 
               <li class="p-b-10">
-                <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Lehengas </a>
+                <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                  Lehengas
+                </a>
               </li>
 
               <li class="p-b-10">
@@ -746,7 +759,9 @@
               </li>
 
               <li class="p-b-10">
-                <a href="#" class="stext-107 cl7 hov-cl1 trans-04"> Designer Kurtis </a>
+                <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                  Designer Kurtis
+                </a>
               </li>
             </ul>
           </div>
@@ -755,8 +770,6 @@
             <h4 class="stext-301 cl0 p-b-30">Help</h4>
 
             <ul>
-           
-
               <li class="p-b-10">
                 <a href="terms" class="stext-107 cl7 hov-cl1 trans-04">
                   Shipping
@@ -764,7 +777,9 @@
               </li>
 
               <li class="p-b-10">
-                <a href="terms" class="stext-107 cl7 hov-cl1 trans-04"> FAQs </a>
+                <a href="terms" class="stext-107 cl7 hov-cl1 trans-04">
+                  FAQs
+                </a>
               </li>
             </ul>
           </div>
@@ -773,31 +788,30 @@
             <h4 class="stext-301 cl0 p-b-30">GET IN TOUCH</h4>
 
             <p class="stext-107 cl7 size-201">
-              Watsapp		: +91 9227208273 (General Inquiry)  <br>
-              Watsapp 	: +91 9909969284 (Domestic Business)	<br>
-              Watsapp		: +91 9327037147 (Design & Development)<br>
-                
-              Mail 		
-              Office		: contact@shopannies.in
-              Customer Care 	: Support@shopannies.in
-              Design Studion	: Design@shopannies.in 
-              
+              Watsapp : +91 9227208273 (General Inquiry) <br />
+              Watsapp : +91 9909969284 (Domestic Business) <br />
+              Watsapp : +91 9327037147 (Design & Development)<br />
+
+              Mail Office : contact@shopannies.in Customer Care :
+              Support@shopannies.in Design Studion : Design@shopannies.in
             </p>
 
             <div class="p-t-27">
-              <a href="https://www.facebook.com/profile.php?id=100089744300493 " class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <a
+                href="https://www.facebook.com/profile.php?id=100089744300493 "
+                class="fs-18 cl7 hov-cl1 trans-04 m-r-16"
+              >
                 <i class="fa fa-facebook"></i>
               </a>
 
-              <a href="https://www.instagram.com/annies092/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <a
+                href="https://www.instagram.com/annies092/"
+                class="fs-18 cl7 hov-cl1 trans-04 m-r-16"
+              >
                 <i class="fa fa-instagram"></i>
               </a>
-
-             
             </div>
           </div>
-
-          
         </div>
 
         <div class="p-t-40">
@@ -829,8 +843,7 @@
             <script>
               document.write(new Date().getFullYear());
             </script>
-            All rights reserved Shopannies.in 
-           
+            All rights reserved Shopannies.in
           </p>
         </div>
       </div>

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html class="no-js" lang="">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Xmee | Login and Register Form Html Templates</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="LoginStyle/img/logo2.png" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="LoginStyle/img/logo2.png"
+    />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href=" LoginStyle/css/bootstrap.min.css" />
     <!-- Fontawesome CSS -->
@@ -16,12 +19,15 @@
     <!-- Flaticon CSS -->
     <link rel="stylesheet" href=" LoginStyle/font/flaticon.css" />
     <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Custom CSS -->
     <link rel="stylesheet" href=" LoginStyle/style.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <!--[if lt IE 8]>
       <p class="browserupgrade">
         You are using an <strong>outdated</strong> browser. Please
@@ -30,69 +36,91 @@
       </p>
     <![endif]-->
     <section class="fxt-template-animation fxt-otp-layout1">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-6 col-lg-7 col-sm-12 col-12 fxt-bg-color">
-                    <div class="fxt-content">
-                        <div class="fxt-header">
-                            <a href="#" class="fxt-logo"><img src=" LoginStyle/img/logo2.png" alt="Logo" width="250px" /></a>
-                            <a href="#" class="fxt-otp-logo"><img src=" LoginStyle/img/elements/otp-icon.png" alt="Otp Logo" /></a>
-                            <h2>Two-Step Verification</h2>
-                            <p>
-                                OTP has been sent to
-                                <%= email %>. Please enter the OTP below:
-                            </p>
-                        </div>
-                        <div class="fxt-form">
-                            <p>Enter OTP Code Here:</p>
-                            <form action="/verify-otp" method="POST" id="otp-form">
-                                <div class="fxt-transformY-50 fxt-transition-delay-1">
-                                    <div class="fxt-form-row">
-                                        <input name="otp" type="text" class="fxt-form-col otp-input form-control" maxlength="6" minlength="6" required="required" />
-                                        <!-- <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" />
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-xl-6 col-lg-7 col-sm-12 col-12 fxt-bg-color">
+            <div class="fxt-content">
+              <div class="fxt-header">
+                <a href="#" class="fxt-logo"
+                  ><img
+                    src=" LoginStyle/img/logo2.png"
+                    alt="Logo"
+                    width="250px"
+                /></a>
+                <a href="#" class="fxt-otp-logo"
+                  ><img
+                    src=" LoginStyle/img/elements/otp-icon.png"
+                    alt="Otp Logo"
+                /></a>
+                <h2>Two-Step Verification</h2>
+                <p>
+                  OTP has been sent to <%= email %>. Please enter the OTP below:
+                </p>
+              </div>
+              <div class="fxt-form">
+                <p>Enter OTP Code Here:</p>
+                <form action="/verify-otp" method="POST" id="otp-form">
+                  <div class="fxt-transformY-50 fxt-transition-delay-1">
+                    <div class="fxt-form-row">
+                      <input
+                        name="otp"
+                        type="text"
+                        class="fxt-form-col otp-input form-control"
+                        maxlength="6"
+                        minlength="6"
+                        required="required"
+                      />
+                      <!-- <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" />
                                         <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" />
                                         <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" />
                                         <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" />
 
                                         <input type="text" class="fxt-form-col otp-input form-control" maxlength="1" required="required" /> -->
-                                    </div>
-                                </div>
-                                <div class="fxt-form-btn fxt-transformY-50 fxt-transition-delay-4">
-                                    <button type="submit" class="fxt-btn-fill">Verify</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="fxt-footer">
-                            <div class="fxt-transformY-50 fxt-transition-delay-7">
-                                <p>
-                                    Not received your code?<button onclick="resendOtp()" class="fxt-btn-resend" type="button">
+                    </div>
+                  </div>
+                  <div
+                    class="fxt-form-btn fxt-transformY-50 fxt-transition-delay-4"
+                  >
+                    <button type="submit" class="fxt-btn-fill">Verify</button>
+                  </div>
+                </form>
+              </div>
+              <div class="fxt-footer">
+                <div class="fxt-transformY-50 fxt-transition-delay-7">
+                  <p>
+                    Not received your code?<button
+                      onclick="resendOtp()"
+                      class="fxt-btn-resend"
+                      type="button"
+                    >
                       Resend code</button
                     ><span class="text-or"></span
                     ><button class="fxt-btn-resend" type="submit"></button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                  </p>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
     <!-- jquery-->
     <script src=" LoginStyle/js/jquery-3.5.0.min.js"></script>
     <script>
-        function resendOtp() {
-            const email = "<%= email %>";
-            axios
-                .post("/send-otp", {
-                    email
-                })
-                .then(function(response) {
-                    console.log("OTP sent successfully");
-                })
-                .catch(function(error) {
-                    console.log("Error sending OTP", error);
-                });
-        }
+      function resendOtp() {
+        const email = "<%= email %>";
+        axios
+          .post("/send-otp", {
+            email,
+          })
+          .then(function (response) {
+            alert("OTP sent successfully");
+            location.reload();
+          })
+          .catch(function (error) {
+            console.log("Error sending OTP", error);
+          });
+      }
     </script>
     <!-- Popper js -->
     <script src=" LoginStyle/js/popper.min.js"></script>
@@ -104,6 +132,5 @@
     <script src=" LoginStyle/js/validator.min.js"></script>
     <!-- Custom Js -->
     <script src=" LoginStyle/js/main.js"></script>
-</body>
-
+  </body>
 </html>
